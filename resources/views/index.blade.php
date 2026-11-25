@@ -29,7 +29,8 @@
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#expertise">Expertise</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li><a href="{{ route('login') }}" style="border: 1px solid black; padding: 10px;">Admin Login</a></li>
+                <li><a href="{{ route('login') }}">Masuk</a></li>
+                <li><a href="{{ route('register') }}" class="nav-cta">Buat Akun</a></li>
                 <li><button type="button" id="theme-toggle" class="theme-toggle-btn"
                         aria-label="Toggle Theme">🌙</button></li>
             </ul>
@@ -39,10 +40,12 @@
     <div class="main-container">
         <header class="hero-section">
             <div class="hero-content">
-                @if ($profile->status)
-                    <div class="badge-status">Mahasiswa Aktif</div>
-                @else
-                    <div class="badge-status" style="background-color: #dc3545;">Bukan Mahasiswa Aktif</div>
+                @if ($profile->exists)
+                    @if ($profile->status)
+                        <div class="badge-status">Mahasiswa Aktif</div>
+                    @else
+                        <div class="badge-status" style="background-color: #dc3545;">Bukan Mahasiswa Aktif</div>
+                    @endif
                 @endif
 
                 <h1>Hello, I'm {{ $profile->nama }}
@@ -220,7 +223,7 @@
                 <div class="form-group">
                     <label for="name">Nama</label>
                     <input type="text" id="name" name="name" placeholder="Masukkan nama Anda"
-                        value="{{ old('name') }}">
+                        value="{{ old('name') }}" required>
                     @error('name')
                         <small class="form-error-msg" style="color: red;">{{ $message }}</small>
                     @enderror
@@ -228,8 +231,8 @@
 
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="text" id="email" name="email" placeholder="nama@email.com"
-                        value="{{ old('email') }}">
+                    <input type="email" id="email" name="email" placeholder="nama@email.com"
+                        value="{{ old('email') }}" required>
                     @error('email')
                         <small class="form-error-msg" style="color: red;">{{ $message }}</small>
                     @enderror
@@ -238,7 +241,7 @@
                 <div class="form-group">
                     <label for="subjek">Subjek</label>
                     <input type="text" id="subjek" name="subjek" placeholder="Subjek pesan Anda"
-                        value="{{ old('subjek') }}">
+                        value="{{ old('subjek') }}" required>
                     @error('subjek')
                         <small class="form-error-msg" style="color: red;">{{ $message }}</small>
                     @enderror
@@ -247,7 +250,7 @@
                 <div class="form-group">
                     <label for="pesan">Pesan</label>
                     <textarea id="pesan" name="pesan" rows="5"
-                        placeholder="Tuliskan pesan atau project Anda di sini...">{{ old('pesan') }}</textarea>
+                        placeholder="Tuliskan pesan atau project Anda di sini..." required>{{ old('pesan') }}</textarea>
                     @error('pesan')
                         <small class="form-error-msg" style="color: red;">{{ $message }}</small>
                     @enderror

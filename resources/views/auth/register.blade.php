@@ -1,59 +1,43 @@
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
+            <a href="{{ route('home') }}" class="auth-logo">Portfolio &amp; CV</a>
         </x-slot>
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        <div class="auth-header">
+            <h1>Buat Akun Baru</h1>
+            <p>Daftar untuk mendapatkan akses ke panel portfolio.</p>
+        </div>
 
-        <form method="POST" action="{{ route('register') }}">
+        <x-auth-validation-errors class="auth-errors" :errors="$errors" />
+
+        <form method="POST" action="{{ route('register') }}" class="auth-form">
             @csrf
-
-            <!-- Name -->
-            <div>
-                <x-label for="name" :value="__('Name')" />
-
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+            <div class="admin-form-group">
+                <x-label for="name" value="Nama" />
+                <x-input id="name" class="auth-input" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             </div>
 
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+            <div class="admin-form-group">
+                <x-label for="email" value="Email" />
+                <x-input id="email" class="auth-input" type="email" name="email" :value="old('email')" required autocomplete="username" />
             </div>
 
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" />
+            <div class="admin-form-group">
+                <x-label for="password" value="Kata sandi" />
+                <x-input id="password" class="auth-input" type="password" name="password" required autocomplete="new-password" />
             </div>
 
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required />
+            <div class="admin-form-group">
+                <x-label for="password_confirmation" value="Konfirmasi kata sandi" />
+                <x-input id="password_confirmation" class="auth-input" type="password" name="password_confirmation" required autocomplete="new-password" />
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-button class="ml-4">
-                    {{ __('Register') }}
-                </x-button>
-            </div>
+            <button type="submit" class="btn-auth-submit">Buat Akun</button>
         </form>
+
+        <div class="auth-footer">
+            Sudah punya akun? <a href="{{ route('login') }}">Masuk</a>
+        </div>
     </x-auth-card>
 </x-guest-layout>

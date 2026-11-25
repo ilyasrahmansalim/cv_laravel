@@ -52,6 +52,7 @@ const form = document.querySelector('.contact-form');
 if (form) {
     const nameInput = document.getElementById('name');
     const emailInput = document.getElementById('email');
+    const subjectInput = document.getElementById('subjek');
     const pesanInput = document.getElementById('pesan');
 
     form.addEventListener('submit', (e) => {
@@ -60,6 +61,7 @@ if (form) {
 
         const nameVal = nameInput.value.trim();
         const emailVal = emailInput.value.trim();
+        const subjectVal = subjectInput.value.trim();
         const pesanVal = pesanInput.value.trim();
 
         clearErrors();
@@ -76,6 +78,11 @@ if (form) {
             isValid = false;
         } else if (!emailVal.includes('@')) {
             showError(emailInput, 'Format email harus mengandung karakter @.');
+            isValid = false;
+        }
+
+        if (subjectVal === '') {
+            showError(subjectInput, 'Subjek wajib diisi.');
             isValid = false;
         }
 
@@ -106,7 +113,7 @@ if (form) {
 
     function clearErrors() {
         document.querySelectorAll('.error-message').forEach(msg => msg.remove());
-        [nameInput, emailInput, pesanInput].forEach(input => {
+        [nameInput, emailInput, subjectInput, pesanInput].forEach(input => {
             if (input) input.style.borderColor = '';
         });
     }

@@ -1,59 +1,59 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelola Data Skill — Admin</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+<x-app-layout>
+    <x-slot name="header">
+        <h1 class="section-title admin-title">Kelola Data Skill</h1>
+    </x-slot>
+
     <style>
-        /* CSS Sederhana untuk Modal Edit */
         .modal {
             display: none;
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            justify-content: center; align-items: center;
+            inset: 0;
+            z-index: 1100;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.55);
+            justify-content: center;
+            align-items: center;
         }
         .modal.active { display: flex; }
     </style>
-</head>
-<body class="admin-body">
-    <div class="admin-container">
-        <h2>Kelola Data Skill</h2>
 
-        <!-- Alert Notifikasi Berhasil -->
-        @if (session('success'))
-            <div class="alert-success" style="background: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
-                {{ session('success') }}
-            </div>
-        @endif
+    @if (session('success'))
+        <div class="alert-success">{{ session('success') }}</div>
+    @endif
+    @if ($errors->any())
+        <div class="alert-error">
+            @foreach ($errors->all() as $error)
+                <div>{{ $error }}</div>
+            @endforeach
+        </div>
+    @endif
 
-        <!-- Card Form Tambah Skill Baru -->
-        <div class="admin-form-card" style="margin-bottom: 30px;">
-            <h3>Tambah Skill Baru</h3>
+    <section class="admin-section">
+        <div class="admin-form-card admin-wide-card">
+            <h2>Tambah Skill Baru</h2>
             <form action="{{ route('skills.store') }}" method="POST">
                 @csrf
                 <div class="admin-form-group">
-                    <label>Nama Skill</label>
-                    <input type="text" name="nama_skill" required placeholder="Masukkan nama skill">
+                    <label for="nama_skill">Nama Skill</label>
+                    <input id="nama_skill" type="text" name="nama_skill" value="{{ old('nama_skill') }}" required>
                 </div>
                 <div class="admin-form-group">
-                    <label>Tingkat Penguasaan</label>
-                    <select name="tingkat" required>
-                        <option value="Beginner">Beginner</option>
-                        <option value="Intermediate">Intermediate</option>
-                        <option value="Advanced">Advanced</option>
-                        <option value="Expert">Expert</option>
+                    <label for="tingkat">Tingkat Penguasaan</label>
+                    <select id="tingkat" name="tingkat" required>
+                        @foreach (['Beginner', 'Intermediate', 'Advanced', 'Expert'] as $tingkat)
+                            <option value="{{ $tingkat }}" {{ old('tingkat') === $tingkat ? 'selected' : '' }}>{{ $tingkat }}</option>
+                        @endforeach
                     </select>
                 </div>
-                <button type="submit" class="btn-admin btn-add">Simpan</button>
+                <button type="submit" class="btn-admin btn-add">Simpan Skill</button>
             </form>
         </div>
+    </section>
 
-        <!-- Tabel Daftar Skill -->
-        <div class="admin-table-card">
-            <h3>Daftar Skill Saat Ini</h3>
-            <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+    <section class="admin-section">
+        <h2 class="section-title">Daftar Skill Saat Ini</h2>
+        <div class="table-responsive">
+            <table class="admin-table">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -68,71 +68,70 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $skill->nama_skill }}</td>
                             <td>{{ $skill->tingkat }}</td>
-                            <td>
-                                <!-- Tombol Buka Modal Edit -->
-                                <button type="button" class="btn-admin btn-edit" 
-                                    onclick="openEditModal({{ $skill->id }}, '{{ $skill->nama_skill }}', '{{ $skill->tingkat }}')">
-                                    Edit
-                                </button>
-
-                                <!-- Form Hapus -->
-                                <form action="{{ route('skills.destroy', $skill->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus skill ini?')">
+                            <td class="admin-actions">
+                                <button type="button" class="btn-admin btn-edit edit-skill"
+                                    data-id="{{ $skill->id }}"
+                                    data-nama="{{ $skill->nama_skill }}"
+                                    data-tingkat="{{ $skill->tingkat }}">Edit</button>
+                                <form action="{{ route('skills.destroy', $skill->id) }}" method="POST"
+                                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus skill ini?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn-admin btn-cancel" style="background-color: #dc3545; color: white;">Hapus</button>
+                                    <button type="submit" class="btn-admin btn-delete">Hapus</button>
                                 </form>
                             </td>
                         </tr>
                     @empty
-                        <tr>
-                            <td colspan="4" style="text-align: center;">Belum ada data skill.</td>
-                        </tr>
+                        <tr><td colspan="4" class="empty-state">Belum ada data skill.</td></tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
-    </div>
+    </section>
 
-    <!-- Modal Pop-up Edit Skill -->
-    <div id="editModal" class="modal">
-        <div class="admin-form-card" style="background: white; padding: 20px; border-radius: 8px; width: 400px;">
-            <h3>Edit Data Skill</h3>
-            <form id="editForm" method="POST">
+    <div id="editModal" class="modal" aria-hidden="true">
+        <div class="admin-form-card modal-card" role="dialog" aria-modal="true" aria-labelledby="editModalTitle">
+            <h2 id="editModalTitle">Edit Data Skill</h2>
+            <form id="editForm" method="POST" data-update-url="{{ url('/admin/skills') }}">
                 @csrf
                 @method('PUT')
-
                 <div class="admin-form-group">
-                    <label>Nama Skill</label>
+                    <label for="edit_nama_skill">Nama Skill</label>
                     <input type="text" id="edit_nama_skill" name="nama_skill" required>
                 </div>
                 <div class="admin-form-group">
-                    <label>Tingkat Penguasaan</label>
+                    <label for="edit_tingkat">Tingkat Penguasaan</label>
                     <select id="edit_tingkat" name="tingkat" required>
-                        <option value="Beginner">Beginner</option>
-                        <option value="Intermediate">Intermediate</option>
-                        <option value="Advanced">Advanced</option>
-                        <option value="Expert">Expert</option>
+                        @foreach (['Beginner', 'Intermediate', 'Advanced', 'Expert'] as $tingkat)
+                            <option value="{{ $tingkat }}">{{ $tingkat }}</option>
+                        @endforeach
                     </select>
                 </div>
-                <button type="submit" class="btn-admin btn-edit">Update</button>
-                <button type="button" class="btn-admin btn-cancel" onclick="closeEditModal()">Batal</button>
+                <div class="admin-actions">
+                    <button type="submit" class="btn-admin btn-edit">Simpan Perubahan</button>
+                    <button type="button" class="btn-admin btn-cancel" id="closeEditModal">Batal</button>
+                </div>
             </form>
         </div>
     </div>
 
-    <!-- JS Sederhana untuk Modal -->
     <script>
-        function openEditModal(id, nama, tingkat) {
-            const form = document.getElementById('editForm');
-            form.action = `/admin/skills/${id}`;
-            document.getElementById('edit_nama_skill').value = nama;
-            document.getElementById('edit_tingkat').value = tingkat;
-            document.getElementById('editModal').classList.add('active');
-        }
+        document.querySelectorAll('.edit-skill').forEach((button) => {
+            button.addEventListener('click', () => {
+                const form = document.getElementById('editForm');
+                const modal = document.getElementById('editModal');
+                form.action = `${form.dataset.updateUrl}/${button.dataset.id}`;
+                document.getElementById('edit_nama_skill').value = button.dataset.nama;
+                document.getElementById('edit_tingkat').value = button.dataset.tingkat;
+                modal.classList.add('active');
+                modal.setAttribute('aria-hidden', 'false');
+            });
+        });
 
-        function closeEditModal() {
-            document.getElementById('editModal').classList.remove('active');
-        }
+        document.getElementById('closeEditModal').addEventListener('click', () => {
+            const modal = document.getElementById('editModal');
+            modal.classList.remove('active');
+            modal.setAttribute('aria-hidden', 'true');
+        });
     </script>
-</body>
-</html>
+</x-app-layout>

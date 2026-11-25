@@ -10,9 +10,21 @@
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         <script src="{{ asset('js/script.js') }}" defer></script>
     </head>
-    <body class="admin-login-body">
-        <div class="auth-container">
+    <body class="auth-page">
+        <header class="site-header">
+            <div class="nav-container">
+                <a href="{{ route('home') }}" class="logo">Portfolio &amp; CV</a>
+                <button type="button" class="hamburger-btn" aria-label="Toggle navigation">☰</button>
+                <ul class="nav-links">
+                    <li><a href="{{ route('home') }}">Beranda</a></li>
+                    <li><a href="{{ route('login') }}">Masuk</a></li>
+                    <li><a href="{{ route('register') }}">Buat Akun</a></li>
+                    <li><button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">🌙</button></li>
+                </ul>
+            </div>
+        </header>
+        <main class="auth-container">
             {{ $slot }}
-        </div>
+        </main>
     </body>
 </html>

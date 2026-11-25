@@ -15,6 +15,8 @@ class RegistrationTest extends TestCase
         $response = $this->get('/register');
 
         $response->assertStatus(200);
+        $response->assertSee('Buat Akun Baru');
+        $response->assertSee('Sudah punya akun?');
     }
 
     public function test_new_users_can_register()

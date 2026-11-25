@@ -4,6 +4,7 @@ html {
 
 /* --- BASE STYLING --- */
 body {
+    margin: 0;
     font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
     background-color: #fbfbfb;
     color: #111111;
@@ -744,6 +745,348 @@ body.dark-mode .contact-section {
     text-decoration: underline;
 }
 
+.nav-cta {
+    display: inline-block;
+    padding: 8px 14px;
+    background: #111111;
+    color: #ffffff !important;
+    border-radius: 8px;
+}
+
+.nav-link-button {
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 520px;
+    padding: 48px 24px;
+    box-sizing: border-box;
+    margin: auto;
+}
+
+.auth-card {
+    padding: 36px;
+    color: #111111;
+}
+
+.auth-brand {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.auth-logo {
+    color: #111111;
+    font-weight: 800;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.auth-header {
+    text-align: left;
+    margin-bottom: 24px;
+}
+
+.auth-header h1 {
+    margin: 0 0 8px;
+    color: #111111;
+    font-size: 28px;
+    letter-spacing: -0.7px;
+}
+
+.auth-header p {
+    margin: 0;
+    color: #666666;
+}
+
+.auth-card .admin-form-group {
+    margin: 0;
+}
+
+.auth-card .admin-form-group label {
+    display: block;
+    margin-bottom: 7px;
+    color: #333333;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.auth-card .admin-form-group input,
+.auth-card input.auth-input,
+.auth-card input:not([type="checkbox"]) {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d5d5d5;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #111111;
+    font: inherit;
+    box-sizing: border-box;
+}
+
+.auth-card .admin-form-group input:focus {
+    outline: none;
+    border-color: #111111;
+    box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.1);
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.auth-remember {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #555555;
+    font-size: 14px;
+}
+
+.auth-secondary-link {
+    color: #111111;
+    font-size: 14px;
+    text-align: right;
+}
+
+.auth-card .btn-auth-submit {
+    width: 100%;
+    padding: 13px 18px;
+    border: 0;
+    border-radius: 8px;
+    background: #111111;
+    color: #ffffff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.auth-card button[type="submit"] {
+    padding: 11px 16px;
+    border: 0;
+    border-radius: 8px;
+    background: #111111;
+    color: #ffffff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.auth-card label {
+    color: #333333;
+}
+
+.auth-card .text-sm {
+    font-size: 14px;
+}
+
+.auth-card .text-green-600 {
+    color: #155724;
+}
+
+.auth-card .text-red-600 {
+    color: #721c24;
+}
+
+.auth-card .btn-auth-submit:hover {
+    background: #333333;
+}
+
+.auth-errors,
+.auth-status {
+    margin-bottom: 18px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.auth-errors {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.auth-status {
+    background: #d4edda;
+    color: #155724;
+}
+
+.auth-footer {
+    color: #555555;
+}
+
+.auth-footer a {
+    color: #111111;
+}
+
+.admin-content {
+    min-height: calc(100vh - 90px);
+    padding-top: 42px;
+    padding-bottom: 80px;
+    box-sizing: border-box;
+}
+
+.admin-page-header {
+    padding-bottom: 24px;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.admin-title {
+    margin: 0;
+}
+
+.admin-section {
+    padding: 30px 0 0;
+}
+
+.admin-section > .section-title {
+    margin-bottom: 22px;
+}
+
+.admin-intro {
+    margin: 0 0 20px;
+    color: #555555;
+}
+
+.admin-wide-card {
+    max-width: none;
+    margin: 0;
+}
+
+.admin-form-card h2,
+.card-pesan h2 {
+    margin: 0 0 18px;
+    font-size: 20px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #eeeeee;
+    text-align: left;
+}
+
+.admin-table th {
+    background: #f4f4f4;
+}
+
+.admin-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.admin-actions form {
+    margin: 0;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+}
+
+.card-pesan h2 {
+    margin: 0 0 8px;
+}
+
+.card-pesan-header a {
+    margin-left: 8px;
+    color: inherit;
+}
+
+.card-pesan-header time {
+    color: #666666;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.pesan-content {
+    margin: 12px 0 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.empty-state {
+    color: #666666;
+    text-align: center;
+}
+
+.modal-card {
+    width: 100%;
+    max-width: 450px;
+    margin: 0;
+}
+
+body.dark-mode .nav-cta,
+body.dark-mode .auth-card .btn-auth-submit {
+    background: #ffffff;
+    color: #111111 !important;
+}
+
+body.dark-mode .auth-card,
+body.dark-mode .admin-form-card,
+body.dark-mode .admin-table,
+body.dark-mode .card-pesan {
+    background: #1e1e1e;
+    color: #e0e0e0;
+}
+
+body.dark-mode .auth-logo,
+body.dark-mode .auth-header h1,
+body.dark-mode .auth-card .admin-form-group label,
+body.dark-mode .auth-card label,
+body.dark-mode .auth-secondary-link,
+body.dark-mode .auth-footer a,
+body.dark-mode .auth-card button[type="submit"] {
+    color: #f5f5f5;
+}
+
+body.dark-mode .auth-header p,
+body.dark-mode .auth-footer,
+body.dark-mode .admin-intro,
+body.dark-mode .card-pesan-header time {
+    color: #bbbbbb;
+}
+
+body.dark-mode .auth-card .admin-form-group input {
+    border-color: #444444;
+    background: #252525;
+    color: #f5f5f5;
+}
+
+body.dark-mode .admin-table th {
+    background: #292929;
+}
+
+body.dark-mode .admin-table th,
+body.dark-mode .admin-table td,
+body.dark-mode .admin-page-header {
+    border-color: #3a3a3a;
+}
+
 @media (max-width: 900px) {
     .hero-section {
         grid-template-columns: 1fr;
@@ -763,6 +1106,11 @@ body.dark-mode .contact-section {
 }
 
 @media (max-width: 768px) {
+    .nav-container {
+        position: relative;
+        flex-wrap: wrap;
+    }
+
     .hamburger-btn {
         display: block;
     }
@@ -778,6 +1126,7 @@ body.dark-mode .contact-section {
         color: #000000 !important;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         padding: 1.5rem 0;
+        gap: 16px;
     }
 
     .nav-links.active {
@@ -793,5 +1142,22 @@ body.dark-mode .contact-section {
     .header-right {
         width: 100%;
         justify-content: space-between;
+    }
+
+    .auth-container {
+        padding: 32px 18px;
+    }
+
+    .auth-card {
+        padding: 28px 22px;
+    }
+
+    .admin-content {
+        padding-top: 28px;
+    }
+
+    .card-pesan-header {
+        flex-direction: column;
+        gap: 10px;
     }
 }

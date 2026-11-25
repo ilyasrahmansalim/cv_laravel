@@ -10,15 +10,32 @@
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         <script src="{{ asset('js/script.js') }}" defer></script>
     </head>
-    <body class="admin-body">
-        @if (isset($header))
-            <header class="admin-nav" style="margin-bottom: 20px;">
-                {{ $header }}
-            </header>
-        @endif
+    <body>
+        <header class="site-header">
+            <div class="nav-container">
+                <a href="{{ route('home') }}" class="logo">Portfolio &amp; CV</a>
+                <button type="button" class="hamburger-btn" aria-label="Toggle navigation">☰</button>
+                <ul class="nav-links">
+                    <li><a href="{{ route('home') }}">Beranda</a></li>
+                    <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                    <li><a href="{{ route('skills.index') }}">Kelola Skill</a></li>
+                    <li><a href="{{ route('pesan.index') }}">Pesan Masuk</a></li>
+                    <li>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="nav-link-button">Keluar</button>
+                        </form>
+                    </li>
+                    <li><button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">🌙</button></li>
+                </ul>
+            </div>
+        </header>
 
-        <div class="admin-container">
+        <main class="main-container admin-content">
+            @if (isset($header))
+                <div class="admin-page-header">{{ $header }}</div>
+            @endif
             {{ $slot }}
-        </div>
+        </main>
     </body>
 </html>

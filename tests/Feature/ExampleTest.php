@@ -11,6 +11,14 @@ class ExampleTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_homepage_remains_available_without_profile_data()
+    {
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('Portfolio Owner')
+            ->assertSee('Profil portfolio belum dikonfigurasi.');
+    }
+
     public function test_homepage_displays_profile_and_expertise_from_database()
     {
         PortfolioProfile::create([

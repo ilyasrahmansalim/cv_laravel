@@ -20,9 +20,9 @@ class PesanController extends Controller
     {
         // Validasi input
         $validated = $request->validate([
-            'name'   => 'required|string',
-            'email'  => 'required|email',
-            'subjek' => 'required|string',
+            'name'   => 'required|string|max:255',
+            'email'  => 'required|email|max:255',
+            'subjek' => 'required|string|max:255',
             'pesan'  => 'required|string',
         ]);
 

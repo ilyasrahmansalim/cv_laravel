@@ -14,7 +14,12 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        $profile = PortfolioProfile::query()->firstOrFail();
+        $profile = PortfolioProfile::query()->first() ?? new PortfolioProfile([
+            'nama' => 'Portfolio Owner',
+            'posisi' => 'Portfolio & CV',
+            'deskripsi' => 'Profil portfolio belum dikonfigurasi. Tambahkan data profil untuk menampilkan informasi Anda.',
+            'status' => false,
+        ]);
         $skills = Skill::orderBy('id', 'asc')->get();
         $experience = Experience::orderBy('id', 'asc')->get();
         $education = Education::orderBy('id', 'asc')->get();

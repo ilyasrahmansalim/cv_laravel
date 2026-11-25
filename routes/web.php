@@ -11,8 +11,11 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/pesan', [PesanController::class, 'index'])->name('pesan.index');
 Route::post('/pesan', [PesanController::class, 'store'])->name('pesan.store');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/pesan', [PesanController::class, 'index'])->name('pesan.index');
+});
 
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/skills', [SkillController::class, 'index'])->name('skills.index');
